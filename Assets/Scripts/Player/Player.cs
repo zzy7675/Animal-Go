@@ -209,12 +209,16 @@ public class Player : MonoBehaviour
         anim.SetBool("isWall", isWall);
     }
 
-    public void GetHit()
+    public void GetHit(float sourceDamagePositionX)
     {
+        int hitDir = 1;
+        if (transform.position.x < sourceDamagePositionX)
+            hitDir = -1;
+
         if (isHit)
             return;
         StartCoroutine(GetHitRoutine());
-        rb.velocity = new Vector2(hitPower.x * -facingDir, hitPower.y);
+        rb.velocity = new Vector2(hitPower.x * hitDir, hitPower.y);
     }
 
     private IEnumerator GetHitRoutine()
