@@ -4,7 +4,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public int fruitsCollected;
+    [Header("Fruit Management")]
+    [SerializeField] private bool needRandomFruit;
+    [SerializeField] private int fruitsCollected;
 
     private void Awake()
     {
@@ -20,4 +22,5 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddFruit() => fruitsCollected++;
+    public bool NeedRandomFruit() => needRandomFruit;
 }

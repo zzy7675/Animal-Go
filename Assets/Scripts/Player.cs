@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private bool isInAir;
 
+    [Header("Death")]
+    [SerializeField] private GameObject vfxDeath;
     private Rigidbody2D rb;
     private Animator anim;
 
@@ -212,6 +214,12 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
 
         isHit = false;
+    }
+
+    public void Die()
+    {
+        Instantiate(vfxDeath, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void RequestBufferJump()
