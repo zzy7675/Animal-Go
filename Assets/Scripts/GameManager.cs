@@ -5,9 +5,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("Fruit Management")]
+    [Header("Fruits Management")]
     [SerializeField] private bool needRandomFruit;
     [SerializeField] private int fruitsCollected;
+    [SerializeField] private int totalNumberOfFruits;
 
     [Header("Player")]
     [SerializeField] private GameObject playerPrefab;
@@ -15,12 +16,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float respawnDelay;
     public Player player;
 
+    [Header("Checkpoints")]
+    [SerializeField] public bool canReactivate;
+
+
     private void Awake()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        GetFruitsInfo();
+    }
+
+    private void GetFruitsInfo()
+    {
+        Fruit[] allFruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None);
+        totalNumberOfFruits = allFruits.Length;
     }
 
     public void respawnPlayer() => StartCoroutine(respawnPlayerRoutine());

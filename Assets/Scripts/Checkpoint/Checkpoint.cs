@@ -4,13 +4,18 @@ public class Checkpoint : MonoBehaviour
 {
     private Animator anim;
     private bool isActive;
-
-    [SerializeField] private bool canBeReactivated;
+    private bool canBeReactivated;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
     }
+
+    private void Start()
+    {
+        canBeReactivated = GameManager.instance.canReactivate;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isActive && !canBeReactivated)
