@@ -23,11 +23,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void respawnPlayer()
-    {
-        player.InRespawn(true);
-        StartCoroutine(respawnPlayerRoutine());
-    }
+    public void respawnPlayer() => StartCoroutine(respawnPlayerRoutine());
 
     public void UpdateRespawnPoint(Transform checkpoint) => respawnPoint = checkpoint;
     private IEnumerator respawnPlayerRoutine()

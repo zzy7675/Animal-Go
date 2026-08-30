@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -241,7 +240,8 @@ public class Player : MonoBehaviour
             rb.gravityScale = 0;
             canBeControlled = false;
             cd.enabled = false;
-        } else
+        }
+        else
         {
             rb.gravityScale = initialGravityScale;
             canBeControlled = true;

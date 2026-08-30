@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
@@ -21,7 +19,7 @@ public class Checkpoint : MonoBehaviour
         Player player = collision.GetComponent<Player>();
         if (player != null)
             ActivateCheckpoint();
-            
+
     }
 
     private void ActivateCheckpoint()
