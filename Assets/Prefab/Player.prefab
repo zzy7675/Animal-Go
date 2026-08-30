@@ -118,7 +118,7 @@ MonoBehaviour:
   coyoteJumpWindow: 0.25
   wallJumpForce: {x: 7, y: 14}
   wallJumpDuration: 0.6
-  hitDuration: 1
+  hitDuration: 0.6
   hitPower: {x: 5, y: 7}
   groundCheckDistance: 0.8
   wallCheckDistance: 0.6

@@ -214,17 +214,17 @@ public class Player : MonoBehaviour
         if (isHit)
             return;
         StartCoroutine(GetHitRoutine());
-        anim.SetTrigger("getHit");
         rb.velocity = new Vector2(hitPower.x * -facingDir, hitPower.y);
     }
 
     private IEnumerator GetHitRoutine()
     {
         isHit = true;
-
+        anim.SetBool("getHit", true);
         yield return new WaitForSeconds(hitDuration);
 
         isHit = false;
+        anim.SetBool("getHit", false);
     }
 
     public void Die()
