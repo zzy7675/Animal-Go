@@ -42,17 +42,29 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject vfxDeath;
     private Rigidbody2D rb;
     private Animator anim;
+    private CapsuleCollider2D cd;
+    private float initialGravityScale;
+    private bool canBeControlled;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        cd = GetComponent<CapsuleCollider2D>();
+    }
+
+    void Start()
+    {
+        initialGravityScale = rb.gravityScale;
+        InRespawn(true);
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdatePlayerStatus();
+        if (!canBeControlled)
+            return;
 
         if (isHit)
             return;
@@ -220,6 +232,21 @@ public class Player : MonoBehaviour
     {
         Instantiate(vfxDeath, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    public void InRespawn(bool inRespawn)
+    {
+        if (inRespawn)
+        {
+            rb.gravityScale = 0;
+            canBeControlled = false;
+            cd.enabled = false;
+        } else
+        {
+            rb.gravityScale = initialGravityScale;
+            canBeControlled = true;
+            cd.enabled = true;
+        }
     }
 
     private void RequestBufferJump()
