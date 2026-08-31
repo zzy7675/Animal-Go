@@ -63,7 +63,11 @@ public class Player : MonoBehaviour
     {
         UpdatePlayerStatus();
         if (!canBeControlled)
+        {
+            HandleCollisions();
+            HandleAnimations();
             return;
+        }
 
         if (isHit)
             return;
@@ -236,6 +240,22 @@ public class Player : MonoBehaviour
         Instantiate(vfxDeath, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+
+    public void Push(Vector2 direction, float duration)
+    {
+        StartCoroutine(PushRoutine(direction, duration));
+    }
+
+    private IEnumerator PushRoutine(Vector2 direction, float duration)
+    {
+        canBeControlled = false;
+
+        rb.velocity = Vector2.zero;
+        rb.AddForce(direction, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(duration);
+
+        canBeControlled = true;
+    } 
 
     public void InRespawn(bool inRespawn)
     {
