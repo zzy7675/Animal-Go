@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class EnemyMushroom : Enemy
 {
+    private BoxCollider2D cd;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        cd = GetComponent<BoxCollider2D>();
+    }
     protected override void Update()
     {
         base.Update();
         anim.SetFloat("xVelocity", rb.velocityX);
+
+        if (isDead)
+            return;
+        
         HandleCollisions();
         HandleMovement();
 
@@ -32,5 +43,11 @@ public class EnemyMushroom : Enemy
 
 
         rb.velocity = new Vector2(facingDir * moveSpeed, rb.velocityY);
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        cd.enabled = false;
     }
 }

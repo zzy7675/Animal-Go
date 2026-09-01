@@ -8,9 +8,17 @@ public class Enemy : MonoBehaviour
     protected Animator anim;
     protected Rigidbody2D rb;
 
-    [SerializeField] protected float moveSpeed;
-    [SerializeField] protected float idleDuration;
+    [SerializeField] protected GameObject damageTrigger;
+    [Space]
+    [SerializeField] protected float moveSpeed = 2;
+    [SerializeField] protected float idleDuration = 1.5f;
     protected float idleTimer;
+
+    [Header("Death")]
+    [SerializeField] private float deathImpact = 5;
+    [SerializeField] private float deathRotationSpeed = 150;
+    protected int deathRotationDirection = 1;
+    protected bool isDead;
 
     [Header("Collision")]
     [SerializeField] protected float groundCheckDistance;
@@ -28,6 +36,15 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
+
+    protected virtual void Update()
+    {
+        idleTimer -= Time.deltaTime;
+
+
+        if (isDead)
+            HandleDeathRotation();
+    }
     protected virtual void HandleFlip(float xValue)
     {
         if ((xValue < 0 && facingRight) || (xValue > 0 && !facingRight))
@@ -35,10 +52,23 @@ public class Enemy : MonoBehaviour
             Flip();
         }
     }
-    protected virtual void Update()
+
+    public virtual void Die()
     {
-        idleTimer -= Time.deltaTime;
+        damageTrigger.SetActive(false);
+        anim.SetTrigger("hit");
+        rb.velocity = new Vector2(rb.velocityX, deathImpact);
+        isDead = true;
+        if (Random.Range(0, 100) < 50)
+            deathRotationDirection = deathRotationDirection * -1;
+
     }
+
+    private void HandleDeathRotation()
+    {
+        transform.Rotate(0, 0, (deathRotationSpeed * deathRotationDirection) * Time.deltaTime);
+    }
+
     protected virtual void Flip()
     {
         facingDir = facingDir * -1;
