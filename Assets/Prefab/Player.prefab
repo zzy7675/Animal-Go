@@ -157,7 +157,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  enemyCheckRadius: 0.5
+  enemyCheckRadius: 0.4
   enemyCheck: {fileID: 3759640062426176244}
   whatIsEnemy:
     serializedVersion: 2
