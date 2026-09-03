@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Confetti (16x16)_0: -6676564034453352251
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

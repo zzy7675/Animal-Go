@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Rock2_Hit (32x28)_0: 2667863001410363088
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

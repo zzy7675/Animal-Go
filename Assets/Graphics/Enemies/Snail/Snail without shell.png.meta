@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Snail without shell_0: 4110787935647147868
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
