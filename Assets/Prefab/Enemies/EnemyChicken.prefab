@@ -230,8 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d004d584c8eb1ff4b9cd0a5532e1e61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  damageTrigger: {fileID: 8555302276265877979}
   moveSpeed: 5
   idleDuration: 1.5
   deathImpact: 5
@@ -242,6 +240,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  playerDetectionDistance: 15
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
@@ -326,7 +325,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.03652525, y: -0.3849802}
+  m_Offset: {x: 0.03652525, y: -0.41621947}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -336,5 +335,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.626152, y: 1.3550396}
+  m_Size: {x: 1.626152, y: 1.292561}
   m_EdgeRadius: 0
