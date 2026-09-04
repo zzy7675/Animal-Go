@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private SpriteRenderer sr => GetComponent<SpriteRenderer>();
     protected Transform player;
     protected Animator anim;
     protected Rigidbody2D rb;
@@ -45,6 +46,12 @@ public class Enemy : MonoBehaviour
     protected virtual void Start()
     {
         InvokeRepeating(nameof(UpdatePlayerRef), 0, 1);
+
+        if (sr.flipX && !facingRight)
+        {
+            sr.flipX = false;
+            Flip();
+        }
     }
 
     private void UpdatePlayerRef()
@@ -85,6 +92,12 @@ public class Enemy : MonoBehaviour
         if (Random.Range(0, 100) < 50)
             deathRotationDirection = deathRotationDirection * -1;
 
+    }
+
+    [ContextMenu("Change Facing Direction")]
+    public void FlipDefaultFacingDirection()
+    {
+        sr.flipX = !sr.flipX;
     }
 
     private void HandleDeathRotation()
