@@ -87,7 +87,7 @@ public class Enemy : MonoBehaviour
             collider.enabled = false;
         }
         anim.SetTrigger("hit");
-        rb.velocity = new Vector2(rb.velocityX, deathImpact);
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, deathImpact);
         isDead = true;
         if (Random.Range(0, 100) < 50)
             deathRotationDirection = deathRotationDirection * -1;
@@ -130,6 +130,6 @@ public class Enemy : MonoBehaviour
 
     protected virtual void HandleAnimator()
     {
-        anim.SetFloat("xVelocity", rb.velocityX);
+        anim.SetFloat("xVelocity", rb.linearVelocityX);
     }
 }

@@ -111,7 +111,7 @@ public class TrapFallingPlatform : MonoBehaviour
         anim.SetTrigger("deactivate");  
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 3.5f;
-        rb.drag = .5f;
+        rb.linearDamping = .5f;
         foreach(Collider2D cd in colliders)
         {
             cd.enabled = false;

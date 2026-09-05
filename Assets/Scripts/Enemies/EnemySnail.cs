@@ -28,7 +28,7 @@ public class EnemySnail : Enemy
             canMove = false;
             hasBody = false;
             anim.SetTrigger("hit");
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             idleDuration = 0;
         } else if (!canMove && !hasBody)
         {
@@ -58,20 +58,20 @@ public class EnemySnail : Enemy
         {
             Flip();
             idleTimer = idleDuration;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
     private void HandleMovement()
     {
-        Debug.Log(rb.velocity);
+        Debug.Log(rb.linearVelocity);
         if (idleTimer > 0)
             return;
 
         if (!canMove)
             return;
 
-        rb.velocity = new Vector2(facingDir * moveSpeed, rb.velocityY);
+        rb.linearVelocity = new Vector2(facingDir * moveSpeed, rb.linearVelocityY);
     }
 
     private void CreateBody()

@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
     private void HandleEnemyDetection()
     {
-        if (rb.velocityY >= 0)
+        if (rb.linearVelocityY >= 0)
             return;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(enemyCheck.position, enemyCheckRadius, whatIsEnemy);
 
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
     private void IntoAir()
     {
         isInAir = true;
-        if (rb.velocityY <= 0)
+        if (rb.linearVelocityY <= 0)
             ActivateCoyoteJump();
     }
 
@@ -155,19 +155,19 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocityX, jumpForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
     }
 
     private void DoubleJump()
     {
         canDoubleJump = false;
         isWallJumping = false;
-        rb.velocity = new Vector2(rb.velocityX, doubleJumpForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, doubleJumpForce);
     }
 
     private void WallJump()
     {
-        rb.velocity = new Vector2(wallJumpForce.x * -facingDir, wallJumpForce.y);
+        rb.linearVelocity = new Vector2(wallJumpForce.x * -facingDir, wallJumpForce.y);
 
         Flip();
         StopAllCoroutines();
@@ -185,13 +185,13 @@ public class Player : MonoBehaviour
 
     private void HandleWallSlide()
     {
-        bool canWallSlide = (isWall && rb.velocityY < 0);
+        bool canWallSlide = (isWall && rb.linearVelocityY < 0);
         float wallSlideSpeedModifier = (yInput < 0) ? 1f : 0.05f;
 
         if (!canWallSlide)
             return;
 
-        rb.velocity = new Vector2(rb.velocityX, rb.velocityY * wallSlideSpeedModifier);
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocityY * wallSlideSpeedModifier);
     }
 
     private void HandleMovement()
@@ -202,7 +202,7 @@ public class Player : MonoBehaviour
         if (isWallJumping)
             return;
 
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocityY);
+        rb.linearVelocity = new Vector2(xInput * moveSpeed, rb.linearVelocityY);
     }
 
     private void HandleFlip()
@@ -228,8 +228,8 @@ public class Player : MonoBehaviour
 
     private void HandleAnimations()
     {
-        anim.SetFloat("xVelocity", rb.velocityX);
-        anim.SetFloat("yVelocity", rb.velocityY);
+        anim.SetFloat("xVelocity", rb.linearVelocityX);
+        anim.SetFloat("yVelocity", rb.linearVelocityY);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isWall", isWall);
     }
@@ -243,7 +243,7 @@ public class Player : MonoBehaviour
         if (isHit)
             return;
         StartCoroutine(GetHitRoutine());
-        rb.velocity = new Vector2(hitPower.x * hitDir, hitPower.y);
+        rb.linearVelocity = new Vector2(hitPower.x * hitDir, hitPower.y);
     }
 
     private IEnumerator GetHitRoutine()
@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
     {
         canBeControlled = false;
 
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.AddForce(direction, ForceMode2D.Impulse);
         yield return new WaitForSeconds(duration);
 

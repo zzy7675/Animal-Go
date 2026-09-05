@@ -12,7 +12,7 @@ public class EnemySnailBody : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        rb.velocity = new Vector2(rb.velocityX, yVelocity);
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, yVelocity);
         this.zRotation = zRotation;
 
         if (facingDir == 1) // facing right

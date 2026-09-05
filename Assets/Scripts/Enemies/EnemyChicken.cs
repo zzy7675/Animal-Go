@@ -38,7 +38,7 @@ public class EnemyChicken : Enemy
         {
             Flip();
             canMove = false;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
     } 
 
@@ -50,7 +50,7 @@ public class EnemyChicken : Enemy
         HandleFlip(player.position.x);
 
 
-        rb.velocity = new Vector2(facingDir * moveSpeed, rb.velocityY);
+        rb.linearVelocity = new Vector2(facingDir * moveSpeed, rb.linearVelocityY);
     }
 
     protected override void HandleFlip(float xValue)
