@@ -13,13 +13,13 @@ public class Enemy : MonoBehaviour
 
     [Header("General")]
     [SerializeField] protected float moveSpeed = 2;
-    protected bool canMove;
     [SerializeField] protected float idleDuration = 1.5f;
+    public bool canMove = true;
     protected float idleTimer;
 
     [Header("Death")]
-    [SerializeField] private float deathImpact = 5;
-    [SerializeField] private float deathRotationSpeed = 150;
+    [SerializeField] protected float deathImpact = 5;
+    [SerializeField] protected float deathRotationSpeed = 150;
     protected int deathRotationDirection = 1;
     protected bool isDead;
 
@@ -91,7 +91,7 @@ public class Enemy : MonoBehaviour
         isDead = true;
         if (Random.Range(0, 100) < 50)
             deathRotationDirection = deathRotationDirection * -1;
-
+        Destroy(gameObject, 10);
     }
 
     [ContextMenu("Change Facing Direction")]
