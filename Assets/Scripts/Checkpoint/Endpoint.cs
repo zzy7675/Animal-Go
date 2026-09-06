@@ -18,5 +18,6 @@ public class Endpoint : MonoBehaviour
     private void ActivateEndpoint()
     {
         anim.SetTrigger("activate");
+        GameManager.instance.LevelFinished();
     }
 }
