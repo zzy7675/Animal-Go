@@ -69,7 +69,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &905964833829245913
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -80,8 +80,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 4.5
   m_Material: {fileID: 6200000, guid: cf6228c33a16fd6449d0677e31251066, type: 2}
   m_IncludeLayers:
@@ -162,7 +162,13 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 64
+  animators:
+  - {fileID: 22100000, guid: 13fc323db67b0674c80df7266340fe94, type: 2}
+  - {fileID: 22100000, guid: aecabb76c8d9cb341b7720c3ab43f64d, type: 2}
+  - {fileID: 22100000, guid: d607f222efdeb21438cdbae35428e9c9, type: 2}
+  - {fileID: 22100000, guid: a9f753ca420bc79419f8c67412ab60df, type: 2}
   vfxDeath: {fileID: 2436658066085902703, guid: 19451dea7af8c5d4f94d5ac9b6b8c253, type: 3}
+  skinIndex: 0
 --- !u!1 &5913567979087005400
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +222,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

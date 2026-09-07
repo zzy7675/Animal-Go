@@ -41,8 +41,10 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private bool isInAir;
 
-    [Header("Death")]
+    [Header("Player Visuals")]
+    [SerializeField] private AnimatorOverrideController[] animators;
     [SerializeField] private GameObject vfxDeath;
+    [SerializeField] private int skinIndex;
     private Rigidbody2D rb;
     private Animator anim;
     private CapsuleCollider2D cd;
@@ -60,6 +62,8 @@ public class Player : MonoBehaviour
     {
         initialGravityScale = rb.gravityScale;
         InRespawn(true);
+
+        UpdateSkin();
     }
 
     // Update is called once per frame
@@ -82,6 +86,15 @@ public class Player : MonoBehaviour
         HandleFlip();
         HandleCollisions();
         HandleAnimations();
+    }
+
+    public void UpdateSkin()
+    {
+        SkinManager skinManager = SkinManager.instance;
+
+        if (skinManager == null)
+            return;
+        anim.runtimeAnimatorController = animators[skinManager.chosenSkinIndex];
     }
 
     private void HandleEnemyDetection()
