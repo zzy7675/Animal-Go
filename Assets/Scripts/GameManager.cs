@@ -6,8 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    private UI_InGame inGameUI;
+
     [Header("Level Management")]
+    [SerializeField] private float levelTimer;
     [SerializeField] private int currentLevelIndex;
+    private int nextLevelIndex;
 
     [Header("Fruits Management")]
     [SerializeField] private bool needRandomFruit;
@@ -37,14 +41,25 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        inGameUI = UI_InGame.instance;
         currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        nextLevelIndex = currentLevelIndex + 1;
         GetFruitsInfo();
+
+    }
+
+    private void Update()
+    {
+        levelTimer += Time.deltaTime;
+
+        inGameUI.UpdateTimerUI(levelTimer);
     }
 
     private void GetFruitsInfo()
     {
         Fruit[] allFruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None);
         totalNumberOfFruits = allFruits.Length;
+        inGameUI.UpdateFruitUI(fruitsCollected, totalNumberOfFruits);
     }
 
     public void respawnPlayer() => StartCoroutine(respawnPlayerRoutine());
@@ -62,7 +77,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("You receive 5 points");
     }
 
-    public void AddFruit() => fruitsCollected++;
+    public void AddFruit()
+    {
+        fruitsCollected++;
+        inGameUI.UpdateFruitUI(fruitsCollected, totalNumberOfFruits);
+    }
     public bool NeedRandomFruit() => needRandomFruit;
 
     public void CreateObject(GameObject prefab, Transform target, float delay)
@@ -77,28 +96,46 @@ public class GameManager : MonoBehaviour
 
         GameObject newObject = Instantiate(prefab, newPosition, Quaternion.identity);
     }
+    public void LevelFinished()
+    {
+        SaveLevelProgression();
 
+        LoadNextScene();
+    }
+
+    private void SaveLevelProgression()
+    {
+        PlayerPrefs.SetInt("Level" + nextLevelIndex + "Unlocked", 1);
+        if (!NoMoreLevels())
+        {
+            PlayerPrefs.SetInt("ContinueLevelNumber", nextLevelIndex);
+        }
+    }
+
+    private void LoadNextScene()
+    {
+        UI_FadeEffect fadeEffect = inGameUI.fadeEffect;
+
+        if (NoMoreLevels())
+        {
+            inGameUI.fadeEffect.ScreenFade(1, 1.5f, LoadTheEndScene);
+        }
+        else
+        {
+            inGameUI.fadeEffect.ScreenFade(1, 1.5f, LoadNextLevel);
+        }
+    }
     private void LoadTheEndScene() => SceneManager.LoadScene("TheEnd");
 
     private void LoadNextLevel()
     {
-        int nextLevelIndex = currentLevelIndex + 1;
         SceneManager.LoadScene("Level_" + nextLevelIndex);
     }
-    public void LevelFinished()
-    {
-        UI_FadeEffect fadeEffect = UI_InGame.instance.fadeEffect;
 
+    private bool NoMoreLevels()
+    {
         int lastLevelIndex = SceneManager.sceneCountInBuildSettings - 2; // exclude "main menu" and "The End" scene
         bool noMoreLevels = (currentLevelIndex == lastLevelIndex);
-
-        if (noMoreLevels)
-        {
-            UI_InGame.instance.fadeEffect.ScreenFade(1, 1.5f, LoadTheEndScene);
-        } else
-        {
-            UI_InGame.instance.fadeEffect.ScreenFade(1, 1.5f, LoadNextLevel);
-        }
-        
+        return noMoreLevels;
     }
 }

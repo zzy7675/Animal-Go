@@ -7,12 +7,13 @@ public class UI_Mainmenu : MonoBehaviour
     public string firstLevelName;
 
     [SerializeField] private GameObject[] uiElements;
-
+    [SerializeField] private GameObject continueButton;
 
     private void Awake()
     {
         fadeEffect = GetComponentInChildren<UI_FadeEffect>();
     }
+
 
     public void SwitchUI(GameObject uiToEnable)
     {
@@ -26,12 +27,28 @@ public class UI_Mainmenu : MonoBehaviour
 
     private void Start()
     {
+        if (HasLevelProgression())
+            continueButton.SetActive(true);
         fadeEffect.ScreenFade(0, 1.5f);
+
     }
+
+    public void ContinueGame()
+    {
+        int levelToLoad = PlayerPrefs.GetInt("ContinueLevelNumber", 0);
+        SceneManager.LoadScene("Level_" + levelToLoad);
+    }
+
     public void NewGame()
     {
         fadeEffect.ScreenFade(1, 1.5f, LoadLevelScene);
     }
 
     private void LoadLevelScene() => SceneManager.LoadScene(firstLevelName);
+
+    private bool HasLevelProgression()
+    {
+        bool hasLevelProgression = PlayerPrefs.GetInt("ContinueLevelNumber", 0) > 0;
+        return hasLevelProgression;
+    }
 }
