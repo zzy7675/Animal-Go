@@ -6,10 +6,22 @@ public class UI_Mainmenu : MonoBehaviour
     private UI_FadeEffect fadeEffect;
     public string sceneName;
 
+    [SerializeField] private GameObject[] uiElements;
+
 
     private void Awake()
     {
         fadeEffect = GetComponentInChildren<UI_FadeEffect>();
+    }
+
+    public void SwitchUI(GameObject uiToEnable)
+    {
+        foreach (GameObject ui in uiElements)
+        {
+            ui.SetActive(false);
+        }
+
+        uiToEnable.SetActive(true);
     }
 
     private void Start()
