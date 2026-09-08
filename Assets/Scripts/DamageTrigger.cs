@@ -8,6 +8,10 @@ public class DamageTrigger : MonoBehaviour
     {
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
+        {
+            player.Damage();
             player.GetHit(transform.position.x);
+        }
+            
     }
 }

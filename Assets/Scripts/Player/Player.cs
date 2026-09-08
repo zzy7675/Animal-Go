@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private DifficultyType gameDifficulty;
+    private GameManager gameManager;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -61,8 +64,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         initialGravityScale = rb.gravityScale;
-        InRespawn(true);
 
+        gameManager = GameManager.instance;
+        UpdateGameDifficulty();
+        InRespawn(true);
         UpdateSkin();
     }
 
@@ -86,6 +91,38 @@ public class Player : MonoBehaviour
         HandleFlip();
         HandleCollisions();
         HandleAnimations();
+    }
+
+    public void Damage()
+    {
+        if (gameDifficulty == DifficultyType.Normal)
+        {
+
+            if (gameManager.FruitsCollected() <= 0)
+            {
+                Die();
+                gameManager.RestartLevel();
+            } else
+            {
+                gameManager.RemoveFruit();
+            }
+
+            return;
+        }
+
+        if (gameDifficulty == DifficultyType.Hard)
+        {
+            Die();
+            // restart level
+            gameManager.RestartLevel();
+        }
+    }
+
+    private void UpdateGameDifficulty()
+    {
+        DifficultyManager difficultyManager = DifficultyManager.instance;
+        if (difficultyManager != null)
+            gameDifficulty = difficultyManager.difficulty;
     }
 
     public void UpdateSkin()
