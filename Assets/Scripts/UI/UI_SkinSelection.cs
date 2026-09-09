@@ -11,6 +11,8 @@ public struct Skin
 
 public class UI_SkinSelection : MonoBehaviour
 {
+    private UI_LevelSelection uiLevelSelection;
+    private UI_Mainmenu uiMainmenu;
     [SerializeField] private Skin[] skinList;
 
     [Header("UI Details")]
@@ -22,10 +24,14 @@ public class UI_SkinSelection : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bankText;
     [SerializeField] private TextMeshProUGUI buySelectText;
 
+
     private void Start()
     {
         LoadSkinUnlocks();
         UpdateSkinDisplay();
+
+        uiMainmenu = GetComponentInParent<UI_Mainmenu>();
+        uiLevelSelection = uiMainmenu.GetComponentInChildren<UI_LevelSelection>(true);
     }
 
     private void LoadSkinUnlocks()
@@ -45,7 +51,11 @@ public class UI_SkinSelection : MonoBehaviour
         if (!skinList[skinIndex].unlocked)
             BuySkin(skinIndex);
         else
+        {
             SkinManager.instance.SetSkinIndex(skinIndex);
+            uiMainmenu.SwitchUI(uiLevelSelection.gameObject);
+        }
+            
         UpdateSkinDisplay();
     }
 

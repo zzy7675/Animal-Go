@@ -286,12 +286,13 @@ public class Player : MonoBehaviour
 
     public void GetHit(float sourceDamagePositionX)
     {
-        int hitDir = 1;
+        float hitDir = 1;
         if (transform.position.x < sourceDamagePositionX)
             hitDir = -1;
 
         if (isHit)
             return;
+        CameraManager.instance.ScreenShake(hitDir);
         StartCoroutine(GetHitRoutine());
         rb.linearVelocity = new Vector2(hitPower.x * hitDir, hitPower.y);
     }

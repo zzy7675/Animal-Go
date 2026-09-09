@@ -320,6 +320,7 @@ MonoBehaviour:
   - {fileID: 1370147532}
   - {fileID: 1586472596}
   - {fileID: 2002903940}
+  - {fileID: 1880054935}
   continueButton: {fileID: 1522378698}
 --- !u!1 &65202989
 GameObject:
@@ -995,7 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3ec0546a065c9469098049777e1f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
+  difficulty: 1
 --- !u!4 &263660170
 Transform:
   m_ObjectHideFlags: 0
@@ -1455,11 +1456,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 47030086}
         m_TargetAssemblyTypeName: UI_Mainmenu, Assembly-CSharp
-        m_MethodName: NewGame
-        m_Mode: 1
+        m_MethodName: SwitchUI
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1370147532}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8233,7 +8234,7 @@ MonoBehaviour:
         m_MethodName: SwitchUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2002903940}
+          m_ObjectArgument: {fileID: 1880054935}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -8402,7 +8403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1522378699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8653,11 +8654,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 47030086}
         m_TargetAssemblyTypeName: UI_Mainmenu, Assembly-CSharp
-        m_MethodName: NewGame
-        m_Mode: 1
+        m_MethodName: SwitchUI
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1370147532}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9950,11 +9951,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 47030086}
         m_TargetAssemblyTypeName: UI_Mainmenu, Assembly-CSharp
-        m_MethodName: NewGame
-        m_Mode: 1
+        m_MethodName: SwitchUI
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1370147532}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum DifficultyType
 {
-    Easy,
+    Easy = 1,
     Normal,
     Hard
 }
@@ -26,4 +26,8 @@ public class DifficultyManager : MonoBehaviour
     }
 
     public void SetDifficulty(DifficultyType type) => difficulty = type;
+    public void LoadDifficulty(int difficultyIndex)
+    {
+        difficulty = (DifficultyType)difficultyIndex;
+    }
 }
