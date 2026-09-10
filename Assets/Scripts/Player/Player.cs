@@ -145,6 +145,7 @@ public class Player : MonoBehaviour
             Enemy newEnemy = enemy.GetComponent<Enemy>();
             if (newEnemy != null)
             {
+                AudioManager.instance.PlaySFX(((int)SFXType.SFX_EnemyKicked));
                 newEnemy.Die();
                 Jump();
             }
@@ -205,11 +206,13 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_Jump));
         rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
     }
 
     private void DoubleJump()
     {
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_Jump));
         canDoubleJump = false;
         isWallJumping = false;
         rb.linearVelocity = new Vector2(rb.linearVelocityX, doubleJumpForce);
@@ -217,6 +220,7 @@ public class Player : MonoBehaviour
 
     private void WallJump()
     {
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_Walljump));
         rb.linearVelocity = new Vector2(wallJumpForce.x * -facingDir, wallJumpForce.y);
 
         Flip();
@@ -292,6 +296,7 @@ public class Player : MonoBehaviour
 
         if (isHit)
             return;
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_PlayerKnocked));
         CameraManager.instance.ScreenShake(hitDir);
         StartCoroutine(GetHitRoutine());
         rb.linearVelocity = new Vector2(hitPower.x * hitDir, hitPower.y);
@@ -309,6 +314,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_Death));
         Instantiate(vfxDeath, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
@@ -342,6 +348,8 @@ public class Player : MonoBehaviour
             rb.gravityScale = initialGravityScale;
             canBeControlled = true;
             cd.enabled = true;
+
+            AudioManager.instance.PlaySFX(((int)SFXType.SFX_Respawn2));
         }
     }
 

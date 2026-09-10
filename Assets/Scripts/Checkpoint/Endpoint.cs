@@ -17,6 +17,7 @@ public class Endpoint : MonoBehaviour
 
     private void ActivateEndpoint()
     {
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_Finish));
         anim.SetTrigger("activate");
         GameManager.instance.LevelFinished();
     }

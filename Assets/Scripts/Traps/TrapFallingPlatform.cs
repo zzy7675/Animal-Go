@@ -23,8 +23,6 @@ public class TrapFallingPlatform : MonoBehaviour
     private float impactTimer;
     private bool impactHappend = false;
 
-
-    
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -91,8 +89,7 @@ public class TrapFallingPlatform : MonoBehaviour
         Player player = other.gameObject.GetComponent<Player>();
         if (player != null)
         {
-            DeactivatePlatform();
-            // Invoke(nameof(DeactivatePlatform), deactivateDelay);
+            Invoke(nameof(DeactivatePlatform), deactivateDelay);
             impactTimer = impactDuration;
             impactHappend = true;
         }
@@ -101,34 +98,15 @@ public class TrapFallingPlatform : MonoBehaviour
 
     private void DeactivatePlatform()
     {
-        StartCoroutine(DeactivatePlatformRoutine());
-    }
 
-    private IEnumerator DeactivatePlatformRoutine()
-    {
-        yield return new WaitForSeconds(deactivateDelay);
+        anim.SetTrigger("deactivate");
         active = false;
-        anim.SetTrigger("deactivate");  
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 3.5f;
         rb.linearDamping = .5f;
-        foreach(Collider2D cd in colliders)
+        foreach (Collider2D cd in colliders)
         {
             cd.enabled = false;
         }
     }
-
-    // private void DeactivatePlatform()
-    // {
-
-    //     anim.SetTrigger("deactivate");
-    //     active = false;
-    //     rb.isKinematic = false;
-    //     rb.gravityScale = 3.5f;
-    //     rb.drag = .5f;
-    //     foreach(Collider2D cd in colliders)
-    //     {
-    //         cd.enabled = false;
-    //     }
-    // }
 }
