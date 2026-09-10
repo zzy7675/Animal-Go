@@ -104,7 +104,6 @@ public class UI_SkinSelection : MonoBehaviour
         if (!HaveEnoughFruits(skinList[index].skinPrice))
         {
             AudioManager.instance.PlaySFX(((int)SFXType.SFX_NoMoney));
-            Debug.Log("Not enough fruits.");
             return;
         }
 

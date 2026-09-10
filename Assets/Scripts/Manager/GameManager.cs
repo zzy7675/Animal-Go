@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     [Header("Traps")]
     public GameObject arrowPrefab;
 
+    [Header("Managers")]
+    [SerializeField] private AudioManager audioManager;
+
 
     private void Awake()
     {
@@ -43,9 +46,18 @@ public class GameManager : MonoBehaviour
     {
         inGameUI = UI_InGame.instance;
         currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        if (respawnPoint == null)
+        {
+            respawnPoint = FindFirstObjectByType<Startpoint>().transform;
+        }
+
+        if (player == null)
+        {
+            player = FindFirstObjectByType<Player>();
+        }
         nextLevelIndex = currentLevelIndex + 1;
         GetFruitsInfo();
-
+        CreateManagersIfNeeded();
     }
 
     private void Update()
@@ -53,6 +65,14 @@ public class GameManager : MonoBehaviour
         levelTimer += Time.deltaTime;
 
         inGameUI.UpdateTimerUI(levelTimer);
+    }
+
+    private void CreateManagersIfNeeded()
+    {
+        if (AudioManager.instance == null)
+        {
+            Instantiate(audioManager);
+        }
     }
 
     private void GetFruitsInfo()
