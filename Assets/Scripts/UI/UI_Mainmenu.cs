@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,12 @@ public class UI_Mainmenu : MonoBehaviour
 
     [SerializeField] private GameObject[] uiElements;
     [SerializeField] private GameObject continueButton;
+
+    [Header("Interactive Camera")]
+    [SerializeField] private MenuCharacter menuCharacter;
+    [SerializeField] private CinemachineCamera cinemachine;
+    [SerializeField] private Transform mainmenuPoint;
+    [SerializeField] private Transform skinSelectionPoint;
 
     private void Awake()
     {
@@ -37,7 +44,8 @@ public class UI_Mainmenu : MonoBehaviour
     {
         int difficultyIndex = PlayerPrefs.GetInt("GameDifficulty", 1);
         int levelToLoad = PlayerPrefs.GetInt("ContinueLevelNumber", 0);
-
+        int lastSavedSkin = PlayerPrefs.GetInt("LastUsedSkin");
+        SkinManager.instance.SetSkinIndex(lastSavedSkin);
         DifficultyManager.instance.LoadDifficulty(difficultyIndex);
         SceneManager.LoadScene("Level_" + levelToLoad);
     }
@@ -53,5 +61,17 @@ public class UI_Mainmenu : MonoBehaviour
     {
         bool hasLevelProgression = PlayerPrefs.GetInt("ContinueLevelNumber", 0) > 0;
         return hasLevelProgression;
+    }
+
+    public void MoveCameraToMainMenu()
+    {
+        menuCharacter.MoveTo(mainmenuPoint);
+        cinemachine.Follow = mainmenuPoint;
+    }
+
+    public void MoveCameraToSkinMenu()
+    {
+        menuCharacter.MoveTo(skinSelectionPoint);
+        cinemachine.Follow = skinSelectionPoint;
     }
 }
