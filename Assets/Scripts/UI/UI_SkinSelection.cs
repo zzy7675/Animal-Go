@@ -55,7 +55,7 @@ public class UI_SkinSelection : MonoBehaviour
             SkinManager.instance.SetSkinIndex(skinIndex);
             uiMainmenu.SwitchUI(uiLevelSelection.gameObject);
         }
-            
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
         UpdateSkinDisplay();
     }
 
@@ -65,6 +65,7 @@ public class UI_SkinSelection : MonoBehaviour
 
         if (skinIndex > maxIndex)
             skinIndex = 0;
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
         UpdateSkinDisplay();
     }
 
@@ -73,6 +74,7 @@ public class UI_SkinSelection : MonoBehaviour
         skinIndex--;
         if (skinIndex < 0)
             skinIndex = maxIndex;
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
         UpdateSkinDisplay();
     }
 

@@ -25,6 +25,7 @@ public class UI_LevelButton : MonoBehaviour
         int difficultyIndex = ((int)DifficultyManager.instance.difficulty);
         PlayerPrefs.SetInt("GameDifficulty", difficultyIndex);
         SceneManager.LoadScene(sceneName);
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
     }
 
     private string FruitsInfoText()

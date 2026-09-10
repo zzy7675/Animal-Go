@@ -28,7 +28,7 @@ public class UI_Mainmenu : MonoBehaviour
         {
             ui.SetActive(false);
         }
-
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
         uiToEnable.SetActive(true);
     }
 
@@ -48,11 +48,13 @@ public class UI_Mainmenu : MonoBehaviour
         SkinManager.instance.SetSkinIndex(lastSavedSkin);
         DifficultyManager.instance.LoadDifficulty(difficultyIndex);
         SceneManager.LoadScene("Level_" + levelToLoad);
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
     }
 
     public void NewGame()
     {
         fadeEffect.ScreenFade(1, 1.5f, LoadLevelScene);
+        AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
     }
 
     private void LoadLevelScene() => SceneManager.LoadScene(firstLevelName);
