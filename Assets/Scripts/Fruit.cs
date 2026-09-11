@@ -10,20 +10,21 @@ public class Fruit : MonoBehaviour
     [SerializeField] private FruitType fruitType;
     [SerializeField] private GameObject pickupVFX;
     private GameManager gameManager;
-    private Animator anim;
-
+    protected Animator anim;
+    protected SpriteRenderer sr;
 
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         gameManager = GameManager.instance;
         SetRandomFruitIfNeeded();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)

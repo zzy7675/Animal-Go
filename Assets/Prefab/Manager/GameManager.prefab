@@ -49,7 +49,10 @@ MonoBehaviour:
   needRandomFruit: 0
   fruitsCollected: 0
   totalNumberOfFruits: 0
+  fruitParent: {fileID: 0}
   canReactivate: 0
-  arrowPrefab: {fileID: 5507452087225305766, guid: 45c29b76511c723468c060a0514cd98a, type: 3}
   audioManager: {fileID: 3773031140026626953, guid: a113ade2660703147a30f138bad5e3a5, type: 3}
   playerManager: {fileID: 3244578326886240660, guid: 961fafa74263aa24984139aff30966b8, type: 3}
+  skinManager: {fileID: 1520584187495596512, guid: 70817b6fd20a8b647aa381dc070bda1c, type: 3}
+  difficultyManager: {fileID: 197721473821054389, guid: 4656214907424ab4db05bbfa6aa56b0d, type: 3}
+  objectCreator: {fileID: 7512588264295295792, guid: a13f6cc15b54b7044a36400401c88945, type: 3}

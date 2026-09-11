@@ -17,16 +17,19 @@ public class ObjectCreator : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    public void CreateObject(GameObject prefab, Transform target, float delay)
+    public void CreateObject(GameObject prefab, Transform target, float delay, bool shouldBeDestroyed = false)
     {
-        StartCoroutine(CreateObjectRoutine(prefab, target, delay));
+        StartCoroutine(CreateObjectRoutine(prefab, target, delay, shouldBeDestroyed));
     }
-    private IEnumerator CreateObjectRoutine(GameObject prefab, Transform target, float delay)
+    private IEnumerator CreateObjectRoutine(GameObject prefab, Transform target, float delay, bool shouldBeDestroyed)
     {
         Vector3 newPosition = target.position;
 
         yield return new WaitForSeconds(delay);
 
         GameObject newObject = Instantiate(prefab, newPosition, Quaternion.identity);
+
+        if (shouldBeDestroyed)
+            Destroy(newObject, 15);
     }
 }

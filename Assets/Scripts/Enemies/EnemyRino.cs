@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class EnemyRino : Enemy
@@ -10,12 +11,17 @@ public class EnemyRino : Enemy
     private float defaultSpeed;
     [SerializeField] private Vector2 impactPower;
 
+    [Header("Effects")]
+    [SerializeField] private ParticleSystem vfxDust;
+    [SerializeField] private Vector2 cameraImpulseVelocity;
+    private CinemachineImpulseSource impulseSource;
 
     protected override void Start()
     {
         base.Start();
         defaultSpeed = moveSpeed;
         canMove = false;
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     protected override void Update()
@@ -34,6 +40,13 @@ public class EnemyRino : Enemy
         {
             canMove = true;
         }
+    }
+
+    private void HitWallImpact()
+    {
+        vfxDust.Play();
+        impulseSource.DefaultVelocity = new Vector2(cameraImpulseVelocity.x * facingDir, cameraImpulseVelocity.y);
+        impulseSource.GenerateImpulse();
     }
 
     private void HandleCharge()
@@ -76,6 +89,8 @@ public class EnemyRino : Enemy
     private void WallHit()
     {
         canMove = false;
+
+        HitWallImpact();
         SpeedReset();
         anim.SetBool("hitWall", true);
         rb.linearVelocity = new Vector2(impactPower.x * -facingDir,

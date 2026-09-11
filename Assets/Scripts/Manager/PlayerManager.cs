@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static event Action OnPlayerRespawn;
     public static PlayerManager instance;
 
     [Header("Player")]
@@ -50,5 +52,6 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(respawnDelay);
         GameObject newPlayer = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
         player = newPlayer.GetComponent<Player>();
+        OnPlayerRespawn?.Invoke();
     }
 }

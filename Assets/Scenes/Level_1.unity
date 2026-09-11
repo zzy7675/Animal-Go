@@ -16511,18 +16511,6 @@ PrefabInstance:
       propertyPath: fruitParent
       value: 
       objectReference: {fileID: 991249822}
-    - target: {fileID: 7837427516529572486, guid: 0a134cc4b28de6c438e6f38c91baf8ba, type: 3}
-      propertyPath: skinManager
-      value: 
-      objectReference: {fileID: 1520584187495596512, guid: 70817b6fd20a8b647aa381dc070bda1c, type: 3}
-    - target: {fileID: 7837427516529572486, guid: 0a134cc4b28de6c438e6f38c91baf8ba, type: 3}
-      propertyPath: objectCreator
-      value: 
-      objectReference: {fileID: 7512588264295295792, guid: a13f6cc15b54b7044a36400401c88945, type: 3}
-    - target: {fileID: 7837427516529572486, guid: 0a134cc4b28de6c438e6f38c91baf8ba, type: 3}
-      propertyPath: difficultyManager
-      value: 
-      objectReference: {fileID: 197721473821054389, guid: 4656214907424ab4db05bbfa6aa56b0d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

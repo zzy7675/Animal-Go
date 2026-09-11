@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44caea368315a1d4aa8ba450d20326b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fruitDrop: {fileID: 2956788316130339939, guid: 04ac0ad0b78b9a544a49d315b29a300f, type: 3}
   gameDifficulty: 3
   moveSpeed: 8
   jumpForce: 14
