@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AnimatorOverrideController[] animators;
     [SerializeField] private GameObject vfxDeath;
     [SerializeField] private int skinIndex;
+    [SerializeField] ParticleSystem vfxDust;
     private Rigidbody2D rb;
     private Animator anim;
     private CapsuleCollider2D cd;
@@ -170,6 +171,7 @@ public class Player : MonoBehaviour
 
     private void Landing()
     {
+        vfxDust.Play();
         isInAir = false;
         canDoubleJump = true;
         AttemptBufferJump();
@@ -206,12 +208,14 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
+        vfxDust.Play();
         AudioManager.instance.PlaySFX(((int)SFXType.SFX_Jump));
         rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
     }
 
     private void DoubleJump()
     {
+        vfxDust.Play();
         AudioManager.instance.PlaySFX(((int)SFXType.SFX_Jump));
         canDoubleJump = false;
         isWallJumping = false;
@@ -220,7 +224,10 @@ public class Player : MonoBehaviour
 
     private void WallJump()
     {
+        vfxDust.Play();
         AudioManager.instance.PlaySFX(((int)SFXType.SFX_Walljump));
+
+        canDoubleJump = true;
         rb.linearVelocity = new Vector2(wallJumpForce.x * -facingDir, wallJumpForce.y);
 
         Flip();
@@ -241,7 +248,6 @@ public class Player : MonoBehaviour
     {
         bool canWallSlide = (isWall && rb.linearVelocityY < 0);
         float wallSlideSpeedModifier = (yInput < 0) ? 1f : 0.05f;
-
         if (!canWallSlide)
             return;
 
