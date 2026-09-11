@@ -56,11 +56,16 @@ public class Player : MonoBehaviour
     private float initialGravityScale;
     private bool canBeControlled;
 
+    private Joystick joystick;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         cd = GetComponent<CapsuleCollider2D>();
+
+        FindFirstObjectByType<UI_JumpButton>().UpdatePlayersRef(this);
+        joystick = FindFirstObjectByType<Joystick>();
     }
 
     void Start()
@@ -181,13 +186,19 @@ public class Player : MonoBehaviour
 
     private void HandleInput()
     {
-        xInput = Input.GetAxisRaw("Horizontal");
-        yInput = Input.GetAxisRaw("Vertical");
+        //xInput = Input.GetAxisRaw("Horizontal");
+        //yInput = Input.GetAxisRaw("Vertical");
+        xInput = joystick.Horizontal;
+        yInput = joystick.Vertical;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            HandleJump();
-            RequestBufferJump();
+            JumpButton();
         }
+    }
+    public void JumpButton()
+    {
+        HandleJump();
+        RequestBufferJump();
     }
 
     private void HandleJump()
