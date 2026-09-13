@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class UI_UpdateLastSelected : MonoBehaviour, ISelectHandler, IPointerEnterHandler
 {
-    private UI_Mainmenu mainMenu;
+    [SerializeField] private UI_Mainmenu mainMenu;
     private void Awake()
     {
         mainMenu = GetComponentInParent<UI_Mainmenu>();
