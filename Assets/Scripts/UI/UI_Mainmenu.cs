@@ -33,6 +33,12 @@ public class UI_Mainmenu : MonoBehaviour
         defaultInput.UI.Navigate.performed += ctx => UpdateSelected();
     }
 
+    private void OnDisable()
+    {
+        defaultInput.Disable();
+        defaultInput.UI.Navigate.performed -= ctx => UpdateSelected();
+    }
+
     public void UpdateLastSelected(GameObject newLastSelected)
     {
         lastSelected = newLastSelected;

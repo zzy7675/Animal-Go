@@ -29,12 +29,14 @@ public class UI_InGame : MonoBehaviour
     {
         playerInput.Enable();
         playerInput.UI.Pause.performed += ctx => PauseButton();
+        playerInput.UI.Navigate.performed += ctx => UpdateSelected();
     }
 
     private void OnDisable()
     {
         playerInput.Disable();
         playerInput.UI.Pause.performed -= ctx => PauseButton();
+        playerInput.UI.Navigate.performed -= ctx => UpdateSelected();
     }
 
     private void Start()
@@ -47,6 +49,13 @@ public class UI_InGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             PauseButton();
+        }
+    }
+    private void UpdateSelected()
+    {
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(firstSelected);
         }
     }
 

@@ -2805,6 +2805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 978299018}
   - component: {fileID: 978299019}
+  - component: {fileID: 978299020}
   m_Layer: 5
   m_Name: BGMSlider
   m_TagString: Untagged
@@ -2897,6 +2898,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &978299020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978299017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e05276d1c04f834681a3649eff7af54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1010247520
 GameObject:
   m_ObjectHideFlags: 0
@@ -10740,6 +10753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1267512475}
   - component: {fileID: 1267512476}
+  - component: {fileID: 1267512477}
   m_Layer: 5
   m_Name: SFXSlider
   m_TagString: Untagged
@@ -10832,6 +10846,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1267512477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267512474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e05276d1c04f834681a3649eff7af54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1272843560
 GameObject:
   m_ObjectHideFlags: 0
@@ -12401,7 +12427,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 0
+  m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6

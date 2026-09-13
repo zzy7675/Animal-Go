@@ -51,26 +51,30 @@ public class UI_SkinSelection : MonoBehaviour
         uiMainMenu.UpdateLastSelected(firstSelected);
         EventSystem.current.SetSelectedGameObject(firstSelected);
 
-        defaultInput.UI.Navigate.performed += ctx =>
-        {
-            if (Time.time - lastTimeInput < inputCooldown)
-                return;
+        defaultInput.UI.Navigate.performed += ctx => SwitchSkinWithNavigation(ctx);
 
-            if (ctx.ReadValue<Vector2>().x <= -1)
-            {
-                PreviousSkin();
-            }
-
-            if (ctx.ReadValue<Vector2>().x >= 1)
-            {
-                NextSkin();
-            }
-        };
     }
 
     private void OnDisable()
     {
         defaultInput.Disable();
+        defaultInput.UI.Navigate.performed -= ctx => SwitchSkinWithNavigation(ctx);
+    }
+
+    private void SwitchSkinWithNavigation(InputAction.CallbackContext ctx)
+    {
+        if (Time.time - lastTimeInput < inputCooldown)
+            return;
+
+        if (ctx.ReadValue<Vector2>().x <= -1)
+        {
+            PreviousSkin();
+        }
+
+        if (ctx.ReadValue<Vector2>().x >= 1)
+        {
+            NextSkin();
+        }
     }
 
     private void LoadSkinUnlocks()
