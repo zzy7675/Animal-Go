@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -76,7 +77,6 @@ public class UI_InGame : MonoBehaviour
             PauseGame();
         }
     }
-
     private void PauseGame()
     {
         EventSystem.current.SetSelectedGameObject(firstSelected);
@@ -102,5 +102,17 @@ public class UI_InGame : MonoBehaviour
     public void UpdateTimerUI(float timer)
     {
         timerText.text = timer.ToString("00") + " s";
+    }
+
+    public void ButtonQuit()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 }
