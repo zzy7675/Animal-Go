@@ -13,8 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float doubleJumpForce;
     private bool facingRight = true;
     private int facingDir = 1;
-    private float xInput;
-    private float yInput;
+
     private bool canDoubleJump = true;
 
     [Header("Buffer & Coyote Jump")]
@@ -55,12 +54,15 @@ public class Player : MonoBehaviour
     private CapsuleCollider2D cd;
     private float initialGravityScale;
     private bool canBeControlled;
+    public PlayerInput playerInput { get; private set; }
+    private Vector2 moveInput;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         cd = GetComponent<CapsuleCollider2D>();
+        playerInput = new PlayerInput();
     }
 
     void Start()
@@ -87,12 +89,30 @@ public class Player : MonoBehaviour
         if (isHit)
             return;
         HandleEnemyDetection();
-        HandleInput();
+        //HandleInput();
         HandleWallSlide();
         HandleMovement();
         HandleFlip();
         HandleCollisions();
         HandleAnimations();
+    }
+
+    private void OnEnable()
+    {
+        playerInput.Enable();
+        playerInput.Player.Jump.performed += ctx => HandleJump();
+        playerInput.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        playerInput.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Disable();
+        playerInput.Player.Jump.performed -= ctx => HandleJump();
+        playerInput.Player.Movement.performed -= ctx => moveInput = ctx.ReadValue<Vector2>();
+        playerInput.Player.Movement.canceled -= ctx => moveInput = Vector2.zero;
+
+
     }
 
     public void Damage()
@@ -181,13 +201,13 @@ public class Player : MonoBehaviour
 
     private void HandleInput()
     {
-        xInput = Input.GetAxisRaw("Horizontal");
-        yInput = Input.GetAxisRaw("Vertical");
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            HandleJump();
-            RequestBufferJump();
-        }
+        //xInput = Input.GetAxisRaw("Horizontal");
+        //yInput = Input.GetAxisRaw("Vertical");
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    HandleJump();
+        //    RequestBufferJump();
+        //}
     }
 
     private void HandleJump()
@@ -249,7 +269,7 @@ public class Player : MonoBehaviour
     private void HandleWallSlide()
     {
         bool canWallSlide = (isWall && rb.linearVelocityY < 0);
-        float wallSlideSpeedModifier = (yInput < 0) ? 1f : 0.05f;
+        float wallSlideSpeedModifier = (moveInput.y < 0) ? 1f : 0.05f;
         if (!canWallSlide)
             return;
 
@@ -264,12 +284,12 @@ public class Player : MonoBehaviour
         if (isWallJumping)
             return;
 
-        rb.linearVelocity = new Vector2(xInput * moveSpeed, rb.linearVelocityY);
+        rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocityY);
     }
 
     private void HandleFlip()
     {
-        if ((xInput < 0 && facingRight) || (xInput > 0 && !facingRight))
+        if ((moveInput.x < 0 && facingRight) || (moveInput.x > 0 && !facingRight))
         {
             Flip();
         }

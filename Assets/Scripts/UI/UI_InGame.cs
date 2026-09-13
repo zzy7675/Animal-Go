@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class UI_InGame : MonoBehaviour
 {
+    private PlayerInput playerInput;
+    private Player player;
     public static UI_InGame instance;
     public UI_FadeEffect fadeEffect { get; private set; }
 
@@ -18,6 +20,19 @@ public class UI_InGame : MonoBehaviour
         instance = this;
 
         fadeEffect = GetComponentInChildren<UI_FadeEffect>();
+        playerInput = new PlayerInput();
+    }
+
+    private void OnEnable()
+    {
+        playerInput.Enable();
+        playerInput.UI.Pause.performed += ctx => PauseButton();
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Disable();
+        playerInput.UI.Pause.performed -= ctx => PauseButton();
     }
 
     private void Start()
@@ -40,17 +55,31 @@ public class UI_InGame : MonoBehaviour
 
     public void PauseButton()
     {
+        player = PlayerManager.instance.player;
         if (isPaused)
         {
-            isPaused = false;
-            Time.timeScale = 1;
-            uiPause.SetActive(false);
-        } else
-        {
-            isPaused = true;
-            Time.timeScale = 0;
-            uiPause.SetActive(true);
+            UnpauseGame();
         }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    private void PauseGame()
+    {
+        player.playerInput.Disable();
+        isPaused = true;
+        Time.timeScale = 0;
+        uiPause.SetActive(true);
+    }
+
+    private void UnpauseGame()
+    {
+        player.playerInput.Enable();
+        isPaused = false;
+        Time.timeScale = 1;
+        uiPause.SetActive(false);
     }
 
     public void UpdateFruitUI(int collectedFruits, int totalFruits)
