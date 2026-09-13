@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class UI_InGame : MonoBehaviour
 {
+    [SerializeField] private GameObject firstSelected;
     private PlayerInput playerInput;
     private Player player;
     public static UI_InGame instance;
@@ -68,6 +70,7 @@ public class UI_InGame : MonoBehaviour
 
     private void PauseGame()
     {
+        EventSystem.current.SetSelectedGameObject(firstSelected);
         player.playerInput.Disable();
         isPaused = true;
         Time.timeScale = 0;

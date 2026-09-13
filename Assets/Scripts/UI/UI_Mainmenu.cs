@@ -1,9 +1,14 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class UI_Mainmenu : MonoBehaviour
 {
+    [SerializeField] private GameObject lastSelected;
+    private DefaultInputActions defaultInput;
     private UI_FadeEffect fadeEffect;
     public string firstLevelName;
 
@@ -19,7 +24,28 @@ public class UI_Mainmenu : MonoBehaviour
     private void Awake()
     {
         fadeEffect = GetComponentInChildren<UI_FadeEffect>();
+        defaultInput = new DefaultInputActions();
     }
+
+    private void OnEnable()
+    {
+        defaultInput.Enable();
+        defaultInput.UI.Navigate.performed += ctx => UpdateSelected();
+    }
+
+    public void UpdateLastSelected(GameObject newLastSelected)
+    {
+        lastSelected = newLastSelected;
+    }
+
+    private void UpdateSelected()
+    {
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelected);
+        }
+    }
+
 
 
     public void SwitchUI(GameObject uiToEnable)

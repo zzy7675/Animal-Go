@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 public struct Skin
@@ -11,8 +13,12 @@ public struct Skin
 
 public class UI_SkinSelection : MonoBehaviour
 {
+    [SerializeField] private GameObject firstSelected;
+    [Space]
+
+    private DefaultInputActions defaultInput;
     private UI_LevelSelection uiLevelSelection;
-    private UI_Mainmenu uiMainmenu;
+    private UI_Mainmenu uiMainMenu;
     [SerializeField] private Skin[] skinList;
 
     [Header("UI Details")]
@@ -25,13 +31,46 @@ public class UI_SkinSelection : MonoBehaviour
     [SerializeField] private TextMeshProUGUI buySelectText;
 
 
-    private void Start()
+    [Space]
+    [SerializeField] private float inputCooldown = .1f;
+    private float lastTimeInput;
+
+    private void Awake()
     {
         LoadSkinUnlocks();
         UpdateSkinDisplay();
 
-        uiMainmenu = GetComponentInParent<UI_Mainmenu>();
-        uiLevelSelection = uiMainmenu.GetComponentInChildren<UI_LevelSelection>(true);
+        uiMainMenu = GetComponentInParent<UI_Mainmenu>();
+        uiLevelSelection = uiMainMenu.GetComponentInChildren<UI_LevelSelection>(true);
+        defaultInput = new DefaultInputActions();
+    }
+
+    private void OnEnable()
+    {
+        defaultInput.Enable();
+        uiMainMenu.UpdateLastSelected(firstSelected);
+        EventSystem.current.SetSelectedGameObject(firstSelected);
+
+        defaultInput.UI.Navigate.performed += ctx =>
+        {
+            if (Time.time - lastTimeInput < inputCooldown)
+                return;
+
+            if (ctx.ReadValue<Vector2>().x <= -1)
+            {
+                PreviousSkin();
+            }
+
+            if (ctx.ReadValue<Vector2>().x >= 1)
+            {
+                NextSkin();
+            }
+        };
+    }
+
+    private void OnDisable()
+    {
+        defaultInput.Disable();
     }
 
     private void LoadSkinUnlocks()
@@ -53,7 +92,7 @@ public class UI_SkinSelection : MonoBehaviour
         else
         {
             SkinManager.instance.SetSkinIndex(skinIndex);
-            uiMainmenu.SwitchUI(uiLevelSelection.gameObject);
+            uiMainMenu.SwitchUI(uiLevelSelection.gameObject);
         }
         AudioManager.instance.PlaySFX(((int)SFXType.SFX_MenuSelect1));
         UpdateSkinDisplay();
@@ -61,6 +100,7 @@ public class UI_SkinSelection : MonoBehaviour
 
     public void NextSkin()
     {
+        lastTimeInput = Time.time;
         skinIndex++;
 
         if (skinIndex > maxIndex)
@@ -71,6 +111,7 @@ public class UI_SkinSelection : MonoBehaviour
 
     public void PreviousSkin()
     {
+        lastTimeInput = Time.time;
         skinIndex--;
         if (skinIndex < 0)
             skinIndex = maxIndex;
