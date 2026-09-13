@@ -1,4 +1,5 @@
 using Unity.Cinemachine;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -51,8 +52,6 @@ public class UI_Mainmenu : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(lastSelected);
         }
     }
-
-
 
     public void SwitchUI(GameObject uiToEnable)
     {
@@ -107,5 +106,16 @@ public class UI_Mainmenu : MonoBehaviour
     {
         menuCharacter.MoveTo(skinSelectionPoint);
         cinemachine.Follow = skinSelectionPoint;
+    }
+
+    public void QuitButton()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            EditorApplication.isPlaying = false;
+        } else
+        {
+            Application.Quit();
+        }
     }
 }
