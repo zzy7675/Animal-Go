@@ -106,13 +106,6 @@ public class UI_InGame : MonoBehaviour
 
     public void ButtonQuit()
     {
-        if (EditorApplication.isPlaying)
-        {
-            EditorApplication.isPlaying = false;
-        }
-        else
-        {
-            Application.Quit();
-        }
+        Application.Quit();
     }
 }

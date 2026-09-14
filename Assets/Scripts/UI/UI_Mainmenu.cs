@@ -110,12 +110,6 @@ public class UI_Mainmenu : MonoBehaviour
 
     public void QuitButton()
     {
-        if (EditorApplication.isPlaying)
-        {
-            EditorApplication.isPlaying = false;
-        } else
-        {
-            Application.Quit();
-        }
+        Application.Quit();
     }
 }
