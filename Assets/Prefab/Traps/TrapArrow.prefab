@@ -54,6 +54,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4798f51945553224581dab01d1278c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushPower: 25
+  pushPower: 32
   duration: 0.5
   rotateSpeed: 120
   cooldown: 1.5

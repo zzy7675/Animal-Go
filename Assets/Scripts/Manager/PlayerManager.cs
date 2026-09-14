@@ -31,10 +31,7 @@ public class PlayerManager : MonoBehaviour
             respawnPoint = FindFirstObjectByType<Startpoint>().transform;
         }
 
-        if (player == null)
-        {
-            player = FindFirstObjectByType<Player>();
-        }
+        respawnPlayer();
     }
 
     public void UpdateRespawnPoint(Transform checkpoint) => respawnPoint = checkpoint;

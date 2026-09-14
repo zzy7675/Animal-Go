@@ -149,7 +149,7 @@ MonoBehaviour:
   moveSpeed: 8
   jumpForce: 14
   doubleJumpForce: 11
-  bufferJumpWindow: 0.25
+  bufferJumpWindow: 0.5
   coyoteJumpWindow: 0.25
   wallJumpForce: {x: 7, y: 14}
   wallJumpDuration: 0.6

@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour
             sr.flipX = false;
             Flip();
         }
+        //player = FindFirstObjectByType<Player>().transform;
         PlayerManager.OnPlayerRespawn += UpdatePlayerReference;
     }
 
